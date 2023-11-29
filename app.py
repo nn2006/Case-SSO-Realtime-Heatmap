@@ -147,21 +147,23 @@ def charge_data():
 
     contador = 1
     FILE = csv.writer(open('./Data/data_01.csv', 'a')) 
-    FILE.writerow(['ID', 'LATITUDE', 'LONGITUDE', 'TEMPERATURE', 'PRESSURE', 'STEAM_INJECTION'])
-
-    while contador <= int(request.args.get('numPags')):
-        data = ide.get_properties(bearer, 'rent', latitude, longitude, contador)
-
-        if data == False:
-            return  {'code': 200, 'message': 'All available data charged'}, 200
-
-        for property in data['elementList']:
-            new_row = [property['propertyCode'], property['latitude'], property['longitude'], property['temperature'], property['pressure'], property['steam_injection']]
-            FILE.writerow(new_row)
-        
-        contador += 1
+    FILE.writerow(['ID', 'LATITUDE', 'LONGITUDE', 'TEMPERATURE', 'PRESSURE', 'STEAM_INJECTION', 'RECEIVEDTIME'])
     
-    FILE.close()
+    #To enhance API security in a way that allows the API to gather telemetry from protected devices.
+    
+    # while contador <= int(request.args.get('numPags')):
+    #     data = ide.get_properties(bearer, 'rent', latitude, longitude, contador)
+
+    #     if data == False:
+    #         return  {'code': 200, 'message': 'All available data charged'}, 200
+
+    #     for property in data['elementList']:
+    #         new_row = [property['propertyCode'], property['latitude'], property['longitude'], property['temperature'], property['pressure'], property['steam_injection']]
+    #         FILE.writerow(new_row)
+        
+    #     contador += 1
+    
+    # FILE.close()
 
     #Limpiamos lineas en blanco
     with open('./Data/data_01.csv') as infile, open('./Data/data_01.csv', 'w') as outfile:
